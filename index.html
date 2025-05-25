@@ -4,65 +4,200 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>X3's Memo</title>
-
-    <link rel="icon" type="image/x-icon" href="./src/icon.png" />
-    <link rel="stylesheet" href="./src/style.css" />
-
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-
-    <script
-      src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
-      type="text/javascript"
-    ></script>
-    <script>
-      function PlayMusic() {
-        var play = document.getElementById("music");
-        play.play();
-      }
-
-      $(function () {
-        setTimeout(PlayMusic, 3000);
-      });
-    </script>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://placehold.co/32x32/000000/FFFFFF?text=X3"
+    />
+    <link rel="stylesheet" href="./src/style.css" />
   </head>
-  <body>
-    <audio autoplay loop id="music">
-      <source src="./src/music/Kembali Pulang.mp3" />
-    </audio>
-
-    <div class="cont">
-      <div style="text-align: center">
-        <img src="./src/imgs/DSC08948.JPG" alt="" class="album" />
-      </div>
-      <div style="text-align: center">
-        <img src="./src/imgs/DSC08951.JPG" alt="" class="album" />
-      </div>
-      <div style="text-align: center; padding-top: 25px" class="musicCov">
-        <div style="text-align: center; width: auto; height: auto">
-          <img
-            src="./src/imgs/cov.png"
-            alt=""
-            style="width: auto; height: 120px; border-radius: 10%"
-          />
-          <div id="bars">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
+  <body
+    class="min-h-screen flex flex-col items-center justify-center p-4 selection:bg-green-500 selection:text-white"
+  >
+    <main>
+      <div
+        class="container mx-auto max-w-2xl w-full bg-white shadow-2xl rounded-xl p-6 md:p-10 space-y-8"
+      >
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div class="text-center">
+            <img
+              src="./src/imgs/DSC08948.JPG"
+              alt="Group photo 1"
+              class="album-image w-full h-auto object-cover rounded-lg border-4 border-pink-500 shadow-lg"
+              onclick="openModal(this.src)"
+              onerror="this.onerror=null;this.src='https://placehold.co/600x400/DB2777/FFFFFF?text=Image+Not+Found';this.alt='Image DSC08948.jpg not found';"
+            />
+          </div>
+          <div class="text-center">
+            <img
+              src="./src/imgs/DSC08951.JPG"
+              alt="Group photo 2"
+              class="album-image w-full h-auto object-cover rounded-lg border-4 border-indigo-500 shadow-lg"
+              onclick="openModal(this.src)"
+              onerror="this.onerror=null;this.src='https://placehold.co/600x400/4F46E5/FFFFFF?text=Image+Not+Found';this.alt='Image DSC08951.jpg not found';"
+            />
           </div>
         </div>
 
-        <p id="title">Kembali Pulang</p>
-        <p id="owner">Suara Kayu, Feby Putri</p>
+        <div
+          class="music-info-card bg-gray-800 text-white p-6 rounded-lg shadow-xl flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6"
+        >
+          <img
+            src="./src/imgs/laskarPelCov.png"
+            alt="Music Cover"
+            class="w-24 h-24 sm:w-32 sm:h-32 object-cover rounded-md border-2 border-green-400"
+          />
+          <div class="flex-grow text-center sm:text-left">
+            <p class="text-2xl md:text-3xl font-semibold tracking-wide">
+              Laskar Pelangi
+            </p>
+            <p class="text-md md:text-lg font-light text-gray-300">Nidji</p>
+          </div>
+          <div class="music-visualizer self-center sm:self-end">
+            <div class="visualizer-bar"></div>
+            <div class="visualizer-bar"></div>
+            <div class="visualizer-bar"></div>
+            <div class="visualizer-bar"></div>
+            <div class="visualizer-bar"></div>
+            <div class="visualizer-bar"></div>
+            <div class="visualizer-bar"></div>
+          </div>
+        </div>
+        <div class="text-center mt-6">
+          <button
+            id="playPauseButton"
+            class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-full shadow-lg transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75"
+          >
+            Play Music
+          </button>
+        </div>
       </div>
-    </div>
+
+      <div id="imageModal" class="modal" onclick="closeModalOutside(event)">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage" />
+      </div>
+    </main>
+    <footer>
+      <div class="main-footer">
+        <p class="info-center">
+          <b> By X3 For X3 - 2025 </b>
+          | Melvin "V3lt" Deandra | Aaron "Powon" Gilson | Jesson Gaddiel
+        </p>
+      </div>
+    </footer>
+
+    <audio id="musicPlayer" loop>
+      <source src="./src/music/laskarPelangi.mpeg" type="audio/mpeg" />
+    </audio>
+
+    <script>
+      const music = document.getElementById("musicPlayer");
+      const playPauseButton = document.getElementById("playPauseButton");
+      let musicPlayedOnce = false;
+
+      function togglePlayPause() {
+        if (music.paused) {
+          music
+            .play()
+            .then(() => {
+              playPauseButton.textContent = "Pause Music";
+              document
+                .querySelectorAll(".visualizer-bar")
+                .forEach((bar) => (bar.style.animationPlayState = "running"));
+              if (!musicPlayedOnce) {
+                musicPlayedOnce = true;
+              }
+            })
+            .catch((error) => console.error("Error playing music:", error));
+        } else {
+          music.pause();
+          playPauseButton.textContent = "Play Music";
+          document
+            .querySelectorAll(".visualizer-bar")
+            .forEach((bar) => (bar.style.animationPlayState = "paused"));
+        }
+      }
+
+      playPauseButton.addEventListener("click", togglePlayPause);
+
+      setTimeout(() => {
+        music
+          .play()
+          .then(() => {
+            playPauseButton.textContent = "Pause Music";
+            document
+              .querySelectorAll(".visualizer-bar")
+              .forEach((bar) => (bar.style.animationPlayState = "running"));
+            musicPlayedOnce = true;
+          })
+          .catch((error) => {
+            console.warn(
+              "Autoplay was prevented. User interaction is needed to play music.",
+              error
+            );
+            document
+              .querySelectorAll(".visualizer-bar")
+              .forEach((bar) => (bar.style.animationPlayState = "paused"));
+            playPauseButton.textContent = "Play Music";
+          });
+      }, 1000);
+
+      const modal = document.getElementById("imageModal");
+      const modalImg = document.getElementById("modalImage");
+
+      function openModal(src) {
+        modal.style.display = "flex";
+        modalImg.src = src;
+        document
+          .querySelectorAll(".visualizer-bar")
+          .forEach((bar) => (bar.style.animationPlayState = "paused"));
+      }
+
+      function closeModal() {
+        modal.style.display = "none";
+        if (!music.paused) {
+          document
+            .querySelectorAll(".visualizer-bar")
+            .forEach((bar) => (bar.style.animationPlayState = "running"));
+        }
+      }
+
+      function closeModalOutside(event) {
+        if (event.target === modal) {
+          closeModal();
+        }
+      }
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && modal.style.display === "flex") {
+          closeModal();
+        }
+      });
+
+      music.onpause = () => {
+        playPauseButton.textContent = "Play Music";
+        if (musicPlayedOnce && music.paused) {
+          document
+            .querySelectorAll(".visualizer-bar")
+            .forEach((bar) => (bar.style.animationPlayState = "paused"));
+        }
+      };
+      music.onplay = () => {
+        playPauseButton.textContent = "Pause Music";
+        if (musicPlayedOnce) {
+          document
+            .querySelectorAll(".visualizer-bar")
+            .forEach((bar) => (bar.style.animationPlayState = "running"));
+        }
+      };
+    </script>
   </body>
 </html>
