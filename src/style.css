@@ -15,6 +15,7 @@ img {
 
 p {
   font-family: "Oswald", sans-serif;
+  text-align: center;
 }
 
 #title {
@@ -30,28 +31,25 @@ p {
 }
 
 .musicCov {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   margin-left: auto;
   margin-right: auto;
   width: 30%;
 }
 
 #bars {
-  /* height: 30px;
-  left: 50%;
-  margin: 255px 0 0 -50px; */
+  margin-left: 11.5%;
+  margin-bottom: -25%;
   position: absolute;
-  /* top: 50%;
-  width: 40px; */
+  top: auto;
+  left: auto;
+  height: inherit;
+  width: inherit;
 }
 
 .bar {
   background: #ffffff;
   bottom: 1px;
-  height: 3px;
+  height: 10%;
   position: absolute;
   width: 3px;
   animation: sound 0ms -800ms linear infinite alternate;
